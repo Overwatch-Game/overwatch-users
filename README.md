@@ -71,3 +71,26 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](LICENSE).
+
+Detener y elimnar el contenedor con los volumenes
+docker-compose down -v
+
+Construir el contenedor
+docker-compose up -d
+
+Entrar al contenedor desde la terminal
+docker exec -it postgres_container /bin/bash
+
+conectarse a la base de datos creada en el docker-compose
+psql -U jmora app-heroes
+
+crear migraciones 
+npm run migration:create src/database/migrations/create-users-table.migration
+
+ Ctrl + P seguido de Ctrl + Q
+
+listar bases de datos \l
+listar tablas \dt
+salir de postgres \q
+
+psql -U users app-users
