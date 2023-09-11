@@ -1,10 +1,10 @@
 import {
   Column,
+  Entity,
   BeforeUpdate,
   CreateDateColumn,
   UpdateDateColumn,
   PrimaryGeneratedColumn,
-  Entity,
 } from 'typeorm';
 
 @Entity({ name: 'users' })
@@ -13,7 +13,7 @@ export class User {
   id: number;
 
   @Column({ name: 'first_name' })
-  name: string;
+  firstName: string;
 
   @Column({ name: 'last_name' })
   lastName: string;
