@@ -16,8 +16,8 @@ export const databaseConfig = registerAs<DatabaseConfig>('database', () => ({
   timezone: 'UTC',
   autoLoadEntities: true,
   entities: ['dist/**/entities/*.entity.js'],
-  migrations: ['src/database/migrations/*{.ts,.js}'],
+  migrations: ['dist/database/migrations/*{.ts,.js}'],
   cli: {
-    migrationsDir: 'src/database/migrations',
+    migrationsDir: 'dist/database/migrations',
   },
 }));

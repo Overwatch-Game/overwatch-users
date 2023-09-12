@@ -1,10 +1,10 @@
 import {
   Column,
+  Entity,
   BeforeUpdate,
   CreateDateColumn,
   UpdateDateColumn,
   PrimaryGeneratedColumn,
-  Entity,
 } from 'typeorm';
 
 @Entity({ name: 'users' })
@@ -13,7 +13,7 @@ export class User {
   id: number;
 
   @Column({ name: 'first_name' })
-  name: string;
+  firstName: string;
 
   @Column({ name: 'last_name' })
   lastName: string;
@@ -26,6 +26,9 @@ export class User {
 
   @Column({ name: 'nickname' })
   nickname: string;
+
+  @Column({ name: 'is_enabled', default: true })
+  isEnabled: boolean;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;

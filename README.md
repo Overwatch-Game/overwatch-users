@@ -94,3 +94,15 @@ listar tablas \dt
 salir de postgres \q
 
 psql -U users app-users
+
+Listar todos los contenedores (incluyendo los que no están en ejecución):
+
+docker ps -a
+
+Listar solo los contenedores en ejecución:
+
+docker ps
+
+docker start [CONTAINER_ID_OR_NAME]
+docker stop [CONTAINER_ID_OR_NAME]
+docker restart [CONTAINER_ID_OR_NAME]
