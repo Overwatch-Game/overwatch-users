@@ -2,7 +2,7 @@ import { IsEnum, IsString } from 'class-validator';
 
 import { UserRole } from '../enum/user-role.enum';
 
-export class UserCreateDto {
+export class UserReadDto {
   @IsString()
   firstName: string;
 

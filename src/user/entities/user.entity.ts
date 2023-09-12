@@ -27,6 +27,9 @@ export class User {
   @Column({ name: 'nickname' })
   nickname: string;
 
+  @Column({ name: 'is_enabled', default: true })
+  isEnabled: boolean;
+
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
 
