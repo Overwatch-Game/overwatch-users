@@ -4,6 +4,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { SerializeInterceptor } from 'serialize-interceptor';
 
 import { AppModule } from './app.module';
+import { HttpExceptionFilter } from './shared/interceptors/http-exception.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -15,6 +16,7 @@ async function bootstrap() {
     }),
   );
   app.useGlobalInterceptors(new SerializeInterceptor());
+  app.useGlobalFilters(new HttpExceptionFilter());
 
   const configService = app.get(ConfigService);
   const port = configService.get<number>('app.port');
