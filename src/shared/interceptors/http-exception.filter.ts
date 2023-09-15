@@ -17,13 +17,6 @@ import { Request, Response } from 'express';
 import { GlobalResponseError } from './global-response.error';
 import { QueryFailedError } from 'typeorm';
 
-interface ResponseParams {
-  body?: object | string;
-  protocol?: 'http';
-  stacktrace?: string;
-  status?: number;
-}
-
 @Catch()
 export class HttpExceptionFilter implements ExceptionFilter {
   catch(exception: unknown, host: ArgumentsHost): void {
@@ -82,22 +75,6 @@ export class HttpExceptionFilter implements ExceptionFilter {
       default:
         status = HttpStatus.INTERNAL_SERVER_ERROR;
     }
-
-    const { method, url, params, body } = request;
-    const responseAux: ResponseParams = {
-      body: message,
-      status,
-    };
-
-    console.error(`Error on request `, {
-      endpoint_type: method,
-      endpoint_url: url,
-      reqParams: {
-        params,
-        body,
-      },
-      response: responseAux,
-    });
 
     response
       .status(status)

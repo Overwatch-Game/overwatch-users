@@ -1,4 +1,4 @@
-import { IsEnum, IsNumber, IsString } from 'class-validator';
+import { IsBoolean, IsEnum, IsNumber, IsString } from 'class-validator';
 
 import { UserRole } from '../enum/user-role.enum';
 import { Expose } from 'class-transformer';
@@ -29,10 +29,13 @@ export class UserReadDto {
   nickname: string;
 
   @IsString()
-  @Expose()
   password: string;
 
   @IsEnum(UserRole)
   @Expose()
   role: UserRole;
+
+  @IsBoolean()
+  @Expose()
+  isEnabled: boolean;
 }

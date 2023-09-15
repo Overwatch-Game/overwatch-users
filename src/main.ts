@@ -1,12 +1,13 @@
 import { NestFactory } from '@nestjs/core';
 import { ConfigService } from '@nestjs/config';
-import { ValidationPipe } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
 import { SerializeInterceptor } from 'serialize-interceptor';
 
 import { AppModule } from './app.module';
 import { HttpExceptionFilter } from './shared/interceptors/http-exception.filter';
 
 async function bootstrap() {
+  const logger = new Logger('Main');
   const app = await NestFactory.create(AppModule);
 
   app.useGlobalPipes(
@@ -22,9 +23,10 @@ async function bootstrap() {
   const port = configService.get<number>('app.port');
   await app
     .listen(port)
-    .then(() => console.log(`Server running on port ${port}`))
+    .then(() => logger.log(`Server running on port ${port}`))
     .catch((error) => {
       throw error;
     });
 }
+
 bootstrap();

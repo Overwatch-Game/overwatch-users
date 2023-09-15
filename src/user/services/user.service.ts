@@ -32,25 +32,14 @@ export class UserService {
   }
 
   public async update(
-    userId: number,
+    email: string,
     user: UserUpdateDto,
   ): Promise<UserReadDto> {
-    const { role, ...userRequest } = user;
-
-    let roleId: number;
-    if (role) {
-      const { id } = await this.roleService.get(role);
-      roleId = id;
-    }
-
-    const userDB = this.userRepository.findOneBy({ id: userId });
+    const userDB = await this.userRepository.findOneBy({ email });
     if (!userDB) throw new NotFoundException('User not found');
 
-    const userToUpdate = { userDB, ...userRequest };
-    const userUpdated = await this.userRepository.save({
-      userToUpdate,
-      roleId,
-    });
+    const userToUpdate = { ...userDB, ...user };
+    const userUpdated = await this.userRepository.save(userToUpdate);
 
     return plainToInstance(UserReadDto, userUpdated, {
       excludeExtraneousValues: true,
