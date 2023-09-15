@@ -1,15 +1,18 @@
 import {
   Column,
   Entity,
+  ManyToMany,
+  JoinColumn,
   BeforeUpdate,
   CreateDateColumn,
   UpdateDateColumn,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { Role } from '../../role/entities/role.entity';
 
 @Entity({ name: 'users' })
 export class User {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: number;
 
   @Column({ name: 'first_name' })
@@ -27,8 +30,18 @@ export class User {
   @Column({ name: 'nickname' })
   nickname: string;
 
+  @Column({ name: 'password' })
+  password: string;
+
   @Column({ name: 'is_enabled', default: true })
   isEnabled: boolean;
+
+  @ManyToMany(() => Role, (role) => role.id)
+  @JoinColumn({ name: 'role_id' })
+  role?: Role;
+
+  @Column({ name: 'role_id' })
+  roleId: number;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;

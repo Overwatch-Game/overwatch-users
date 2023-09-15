@@ -16,3 +16,8 @@ export type AppConfig = {
   timeout: number;
   apiKey: string;
 };
+
+export type AuthConfig = {
+  jwtSecret: string;
+  jwtExpiresIn: string;
+};
