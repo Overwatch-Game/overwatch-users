@@ -82,7 +82,7 @@ Entrar al contenedor desde la terminal
 docker exec -it postgres_container /bin/bash
 
 conectarse a la base de datos creada en el docker-compose
-psql -U jmora app-heroes
+psql -U jmora app-users
 
 crear migraciones 
 npm run migration:create src/database/migrations/create-users-table.migration

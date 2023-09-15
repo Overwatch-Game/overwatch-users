@@ -1,12 +1,13 @@
 import {
   Catch,
   HttpStatus,
-  BadRequestException,
-  HttpException,
   ArgumentsHost,
+  HttpException,
   ExceptionFilter,
   NotFoundException,
   ForbiddenException,
+  BadRequestException,
+  UnauthorizedException,
 } from '@nestjs/common';
 
 import { EntityNotFoundError } from 'typeorm/error/EntityNotFoundError';
@@ -47,6 +48,12 @@ export class HttpExceptionFilter implements ExceptionFilter {
         message = ((exception as NotFoundException).getResponse() as any)
           .message;
         code = 'NotFoundException';
+        break;
+      case UnauthorizedException:
+        status = (exception as UnauthorizedException).getStatus();
+        message = ((exception as UnauthorizedException).getResponse() as any)
+          .message;
+        code = 'UnauthorizedException';
         break;
       case BadRequestException:
         status = (exception as BadRequestException).getStatus();
