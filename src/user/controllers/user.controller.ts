@@ -1,11 +1,5 @@
-import {
-  Get,
-  Body,
-  Param,
-  Patch,
-  Controller,
-  ParseIntPipe,
-} from '@nestjs/common';
+import { Request } from 'express';
+import { Get, Body, Patch, Controller, Req } from '@nestjs/common';
 
 import { UserReadDto, UserUpdateDto } from '../dtos';
 import { UserService } from '../services/user.service';
@@ -15,15 +9,17 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Get()
-  getByEmail(@Param('email') email: string): Promise<UserReadDto> {
+  getByEmail(@Req() request: Request): Promise<UserReadDto> {
+    const { email } = request['user'];
     return this.userService.get(email);
   }
 
   @Patch()
   update(
+    @Req() request: Request,
     @Body() user: UserUpdateDto,
-    @Param('userId', ParseIntPipe) userId: number,
   ): Promise<UserReadDto> {
-    return this.userService.update(userId, user);
+    const { email } = request['user'];
+    return this.userService.update(email, user);
   }
 }
