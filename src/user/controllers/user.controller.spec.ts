@@ -1,9 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
+
+import { userMock } from '../../../test';
 import { UserController } from './user.controller';
 import { UserService } from '../services/user.service';
-import { userMock } from '../../../test';
 
-describe('userController', () => {
+describe('User Controller', () => {
   let userController: UserController;
   let userService: UserService;
 

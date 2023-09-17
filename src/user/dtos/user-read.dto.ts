@@ -29,6 +29,7 @@ export class UserReadDto {
   nickname: string;
 
   @IsString()
+  @Expose()
   password: string;
 
   @IsEnum(UserRole)
