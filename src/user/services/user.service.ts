@@ -1,9 +1,9 @@
 import { plainToClass, plainToInstance } from 'class-transformer';
 import { Injectable, NotFoundException } from '@nestjs/common';
 
-import { UserUpdateDto, UserReadDto } from '../dtos';
 import { RoleService } from '../../role/services/role.service';
 import { UserRepository } from '../repositories/user.repository';
+import { UserUpdateDto, UserReadDto, UserAuthReadDto } from '../dtos';
 import { UserCreateInterface } from '../interfaces/user-create.interface';
 
 @Injectable()
@@ -46,13 +46,13 @@ export class UserService {
     });
   }
 
-  public async getByEmail(email: string): Promise<UserReadDto> {
+  public async getByEmail(email: string): Promise<UserAuthReadDto> {
     const user = await this.userRepository.findOne({
       where: { email },
       select: { email: true, password: true, id: true },
     });
 
-    return plainToClass(UserReadDto, user, {
+    return plainToClass(UserAuthReadDto, user, {
       excludeExtraneousValues: true,
     });
   }
