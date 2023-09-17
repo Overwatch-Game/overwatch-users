@@ -9,8 +9,8 @@ import {
 } from '../../../test';
 import { UserService } from './user.service';
 import { User } from '../entities/user.entity';
-import { UserRepository } from '../repositories/user.repository';
 import { RoleService } from '../../role/services/role.service';
+import { UserRepository } from '../repositories/user.repository';
 
 describe('User Service', () => {
   let userService: UserService;
