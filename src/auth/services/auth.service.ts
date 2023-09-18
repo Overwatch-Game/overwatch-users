@@ -21,7 +21,12 @@ export class AuthService {
     if (!bcrypt.compareSync(password, userDB.password))
       throw new UnauthorizedException('Credentials are not valid');
 
-    const payload = { sub: userDB.id, email: userDB.email };
+    const payload = {
+      sub: userDB.id,
+      email: userDB.email,
+      role: userDB.roleName,
+    };
+
     const accessToken = await this.jwtService.signAsync(payload);
     return {
       accessToken,
@@ -38,7 +43,12 @@ export class AuthService {
 
     const userDB = await this.usersService.create(userData);
 
-    const payload = { sub: userDB.id, email: userDB.email };
+    const payload = {
+      sub: userDB.id,
+      email: userDB.email,
+      role: userDB.roleName,
+    };
+
     const accessToken = await this.jwtService.signAsync(payload);
     return {
       accessToken,

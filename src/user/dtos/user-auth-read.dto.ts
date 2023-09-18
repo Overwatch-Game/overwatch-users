@@ -13,4 +13,8 @@ export class UserAuthReadDto {
   @IsString()
   @Expose()
   password: string;
+
+  @IsString()
+  @Expose()
+  roleName: string;
 }
