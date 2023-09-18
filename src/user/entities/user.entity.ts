@@ -8,6 +8,7 @@ import {
   UpdateDateColumn,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+
 import { Role } from '../../role/entities/role.entity';
 
 @Entity({ name: 'users' })
@@ -30,7 +31,7 @@ export class User {
   @Column({ name: 'nickname' })
   nickname: string;
 
-  @Column({ name: 'password' })
+  @Column({ name: 'password', select: false })
   password: string;
 
   @Column({ name: 'is_enabled', default: true })
