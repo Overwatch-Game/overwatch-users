@@ -1,30 +1,6 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
-
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
-
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Users app to authenticate customers
 
 ## Installation
 
@@ -35,14 +11,8 @@ $ npm install
 ## Running the app
 
 ```bash
-# development
-$ npm run start
-
 # watch mode
 $ npm run start:dev
-
-# production mode
-$ npm run start:prod
 ```
 
 ## Test
@@ -51,58 +21,59 @@ $ npm run start:prod
 # unit tests
 $ npm run test
 
-# e2e tests
-$ npm run test:e2e
-
 # test coverage
 $ npm run test:cov
 ```
 
-## Support
+## Docker instructions 
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```bash
+# Construir el contenedor
+$ docker-compose up -d
 
-## Stay in touch
+# Detener y eliminar el contenedor con los volumenes
+$ docker-compose down -v
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+# Entrar al contenedor desde la terminal
+$ docker exec -it postgres_container /bin/bash
 
-## License
+# Conectarse a la base de datos creada en el docker-compose
+$ psql -U users app-users
 
-Nest is [MIT licensed](LICENSE).
+# Listar bases de datos
+$ \l
 
-Detener y elimnar el contenedor con los volumenes
-docker-compose down -v
+# Listartablas
+$ \dt
 
-Construir el contenedor
-docker-compose up -d
+# Salir de postgres
+$ \q
 
-Entrar al contenedor desde la terminal
-docker exec -it postgres_container /bin/bash
+# Salir del contenedor creado en el docker-compose
+$ Ctrl + P seguido de Ctrl + Q
 
-conectarse a la base de datos creada en el docker-compose
-psql -U jmora app-users
+# Listar todos los contenedores (incluyendo los que no están en ejecución)
+$ docker ps -a
 
-crear migraciones 
-npm run migration:create src/database/migrations/create-users-table.migration
+# Listar solo los contenedores en ejecución:
+$ docker ps
 
- Ctrl + P seguido de Ctrl + Q
+# Iniciar un contenedor ya creado
+$ docker start [CONTAINER_ID_OR_NAME]
 
-listar bases de datos \l
-listar tablas \dt
-salir de postgres \q
+# Detener un contenedor
+$ docker stop [CONTAINER_ID_OR_NAME]
 
-psql -U users app-users
+# Reiniciar un contenedor
+$ docker restart [CONTAINER_ID_OR_NAME]
+```
 
-Listar todos los contenedores (incluyendo los que no están en ejecución):
+## Migrations instructions 
 
-docker ps -a
+```bash
+# Crear migraciones 
+$ npm run migration:create src/database/migrations/create-users-table.migration
 
-Listar solo los contenedores en ejecución:
-
-docker ps
-
-docker start [CONTAINER_ID_OR_NAME]
-docker stop [CONTAINER_ID_OR_NAME]
-docker restart [CONTAINER_ID_OR_NAME]
+# Revertir migraciones 
+$ npm run migration:revert
+```

@@ -1,7 +1,7 @@
 import {
   Column,
   Entity,
-  ManyToMany,
+  ManyToOne,
   JoinColumn,
   BeforeUpdate,
   CreateDateColumn,
@@ -37,7 +37,7 @@ export class User {
   @Column({ name: 'is_enabled', default: true })
   isEnabled: boolean;
 
-  @ManyToMany(() => Role, (role) => role.id)
+  @ManyToOne(() => Role, (role) => role.id)
   @JoinColumn({ name: 'role_id' })
   role?: Role;
 

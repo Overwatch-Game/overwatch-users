@@ -1,5 +1,5 @@
-import { plainToClass, plainToInstance } from 'class-transformer';
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { plainToClass, plainToInstance } from 'class-transformer';
 
 import { RoleService } from '../../role/services/role.service';
 import { UserRepository } from '../repositories/user.repository';
@@ -20,15 +20,13 @@ export class UserService {
     });
   }
 
-  public async create(user: UserCreateInterface): Promise<UserReadDto> {
+  public async create(user: UserCreateInterface): Promise<UserAuthReadDto> {
     const { role, ...userRequest } = user;
     const { id: roleId } = await this.roleService.get(role);
     const userToSave = this.userRepository.create({ ...userRequest, roleId });
     const userSaved = await this.userRepository.save(userToSave);
 
-    return plainToInstance(UserReadDto, userSaved, {
-      excludeExtraneousValues: true,
-    });
+    return this.getByEmail(userSaved.email);
   }
 
   public async update(
@@ -49,11 +47,16 @@ export class UserService {
   public async getByEmail(email: string): Promise<UserAuthReadDto> {
     const user = await this.userRepository.findOne({
       where: { email },
-      select: { email: true, password: true, id: true },
+      select: { email: true, password: true, id: true, role: { name: true } },
+      relations: ['role'],
     });
 
-    return plainToClass(UserAuthReadDto, user, {
-      excludeExtraneousValues: true,
-    });
+    return plainToClass(
+      UserAuthReadDto,
+      { ...user, roleName: user.role.name },
+      {
+        excludeExtraneousValues: true,
+      },
+    );
   }
 }
