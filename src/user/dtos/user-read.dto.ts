@@ -1,7 +1,7 @@
+import { Expose } from 'class-transformer';
 import { IsBoolean, IsEnum, IsNumber, IsString } from 'class-validator';
 
 import { UserRole } from '../enum/user-role.enum';
-import { Expose } from 'class-transformer';
 
 export class UserReadDto {
   @IsNumber()
@@ -34,7 +34,7 @@ export class UserReadDto {
 
   @IsEnum(UserRole)
   @Expose()
-  role: UserRole;
+  roleName: UserRole;
 
   @IsBoolean()
   @Expose()
