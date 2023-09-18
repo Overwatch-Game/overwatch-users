@@ -35,3 +35,41 @@ export const userAuthMockBadPasswordRead = {
   email: 'diego@mail.com',
   password: bcrypt.hashSync('1234', 10),
 };
+
+export const payloadWithTokenMock = { sub: '1234', email: 'diego@mail.com' };
+export const requestWithTokenMock = {
+  switchToHttp: jest.fn().mockReturnValue({
+    getRequest: jest.fn().mockReturnValue({
+      headers: {
+        authorization: `Bearer ${authJWT}`,
+      },
+    }),
+  }),
+  getHandler: jest.fn(),
+  getClass: jest.fn(),
+};
+
+const token = 'invalid_token';
+export const requestWithInvalidTokenMock = {
+  switchToHttp: jest.fn().mockReturnValue({
+    getRequest: jest.fn().mockReturnValue({
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    }),
+  }),
+  getHandler: jest.fn(),
+  getClass: jest.fn(),
+};
+
+export const requestWithoutTokenMock = {
+  switchToHttp: jest.fn().mockReturnValue({
+    getRequest: jest.fn().mockReturnValue({
+      headers: {
+        authorization: undefined,
+      },
+    }),
+  }),
+  getHandler: jest.fn(),
+  getClass: jest.fn(),
+};
